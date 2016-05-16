@@ -1,0 +1,70 @@
+require('minitest/autorun')
+require_relative("../models/team")
+require_relative("../models/match")
+require_relative("../models/league")
+
+class TestResult < Minitest::Test
+
+    def setup
+
+      team1 = Team.new({'name' => 'Gentlemen', 'location' => 'Edinburgh'})
+      team2 = Team.new({'name' => 'Saints', 'location' => 'St Andrews'})
+      team3 = Team.new({'name' => 'Honey Badgers', 'location' => 'Glasgow'})
+      team4 = Team.new({'name' => 'Granite City Gadiators', 'location' => 'Aberdeen'})
+
+      t1 = team1.save
+      t2 = team2.save
+      t3 = team3.save
+      t4 = team4.save
+      
+
+      # game1 = Match.new({'home_team_score' => 10, 'away_team_score' => 5, 'home_team_id' => t1.id, 'away_team_id' => t2.id, 'winner_id' => t1.id})
+      # game2 = Match.new({'home_team_score' => 2, 'away_team_score' => 7, 'home_team_id' => t1.id, 'away_team_id' => t3.id, 'winner_id' => t3.id})
+      # game3 = Match.new({'home_team_score' => 5, 'away_team_score' => 4, 'home_team_id' => t1.id, 'away_team_id' => t4.id, 'winner_id' => t1.id})
+      # game4 = Match.new({'home_team_score' => 7, 'away_team_score' => 8, 'home_team_id' => t2.id, 'away_team_id' => t3.id, 'winner_id' => t3.id})
+      # game5 = Match.new({'home_team_score' => 19, 'away_team_score' => 10, 'home_team_id' => t2.id, 'away_team_id' => t4.id, 'winner_id' => t2.id})
+      # game6 = Match.new({'home_team_score' => 13, 'away_team_score' => 7, 'home_team_id' => t3.id, 'away_team_id' => t4.id, 'winner_id' => t3.id})
+      # game7 = Match.new({'home_team_score' => 7, 'away_team_score' => 9, 'home_team_id' => t2.id, 'away_team_id' => t1.id, 'winner_id' => t1.id})
+      # game8 = Match.new({'home_team_score' => 11, 'away_team_score' => 9, 'home_team_id' => t3.id, 'away_team_id' => t1.id, 'winner_id' => t3.id})
+      # game9 = Match.new({'home_team_score' => 7, 'away_team_score' => 10, 'home_team_id' => t4.id, 'away_team_id' => t1.id, 'winner_id' => t1.id})
+      # game10 = Match.new({'home_team_score' => 5, 'away_team_score' => 3, 'home_team_id' => t3.id, 'away_team_id' => t2.id, 'winner_id' => t3.id})
+      # game11 = Match.new({'home_team_score' => 7, 'away_team_score' => 11, 'home_team_id' => t4.id, 'away_team_id' => t2.id, 'winner_id' => t2.id})
+      # game12 = Match.new({'home_team_score' => 6, 'away_team_score' => 5, 'home_team_id' => t4.id, 'away_team_id' => t3.id, 'winner_id' => t4.id})
+
+      # g1 = game1.save
+      # g2 = game2.save
+      # g3 = game3.save
+      # g4 = game4.save
+      # g5 = game5.save
+      # g6 = game6.save
+      # g7 = game7.save
+      # g8 = game8.save
+      # g9 = game9.save
+      # g10 = game10.save
+      # g11 = game11.save
+      # g12 = game12.save
+ 
+      @games = [@g1, @g2, @g3, @g4, @g5, @g6, @g7, @g8, @g9, @g10, @g11, @g12]
+      # @games = [g1, g2]
+      @teams = [t1, t2, t3, t4]
+      @league = League.new(@games, @teams)
+    end
+
+    def test_winners
+      result = @league.winners
+      assert_equal(["Gentlemen", "Gentlemen", "Gentlemen", "Gentlemen", "Saints", "Saints", "Honey Badgers", "Honey Badgers", "Honey Badgers", "Honey Badgers", "Honey Badgers", "Granite City Gadiators"], result)
+    end
+
+    # def test_team_name
+    #   result = @league.team_name
+    #   assert_equal('Edinburgh Gentlemen', result)
+    # end
+
+    def test_standings_table
+      result = @league.standings_table
+      assert_equal('Edinburgh Gentlemen', result)
+    end 
+
+
+
+end
